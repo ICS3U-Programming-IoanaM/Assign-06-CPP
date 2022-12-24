@@ -8,11 +8,28 @@
 #include <iostream>
 #include <list>
 
+// function to shift the elements of the lit to the right
+std::list<std::string> ShiftRight(std::list<std::string> userList, int shift) {
+    // variables
+    std::string firstElement;
+
+    // shifts the list to the right
+    for (int counter = 0; counter < shift; counter++) {
+        firstElement = userList.front();
+        userList.push_back(firstElement);
+        userList.pop_front();
+    }
+
+    return userList;
+}
+
+
+// function to shift the elements of the lit to the left
 std::list<std::string> ShiftLeft(std::list<std::string> userList, int shift) {
     // variables
     std::string prevElement;
 
-    // actually shifts the list
+    // shifts the list to the left
     for (int counter = 0; counter < shift; counter++) {
         prevElement = userList.back();
         userList.push_front(prevElement);
@@ -22,12 +39,36 @@ std::list<std::string> ShiftLeft(std::list<std::string> userList, int shift) {
     return userList;
 }
 
+
+// function to display the start message
+void StartMessage() {
+    std::cout << "Hello and thank you for using this program!" << std::endl
+              << "In this program, you will be entering values"
+              << " to add into a list, then the" << std::endl
+              << "elements (the values) will shift"
+              << "to the left x amount of times." << std::endl
+              << "Example:" << std::endl
+              << "Enter a number(/ q to quit) : 3" << std::endl
+              << "Enter a number (/q to quit): abc" << std::endl
+              << "Enter a number (/q to quit): 1.1" << std::endl
+              << "Enter a number (/q to quit): /q" << std::endl
+              << "Here is your list: [3, abc, 1.1]" << std::endl
+              << "How many elements to the left do you want to shift this list? 2"
+              << std::endl
+              << "Your list shifted 2 elements to the left is [abc, 1.1, 3]"
+              << std::endl << std::endl;
+}
+
+
 int main() {
     // variables
     std::list<std::string> listOfInput, finalList;
-    std::string userInput, shiftStr, displayList;
+    std::string userInput, shiftStr, displayList, direction;
     bool goAgain;
     int shiftInt;
+
+    // displays the start message
+    StartMessage();
 
     do {
         // populating list
@@ -54,8 +95,23 @@ int main() {
             break;
         }
 
-        // calls function to shift values in the list
-        finalList = ShiftLeft(listOfInput, shiftInt);
+        // asks the user which way to shift the elements
+        std::cout << "Which way do you want to shift the list (l for left or r for right)? ";
+        std::cin >> direction;
+
+        // user wants to shift to the left
+        if (direction == "l") {
+            finalList = ShiftLeft(listOfInput, shiftInt);
+
+        // user wants to shift to the right
+        } else if (direction == "r") {
+            finalList = ShiftRight(listOfInput, shiftInt);
+
+        // user input is invalid
+        } else {
+            std::cout << "Please enter either l or r.";
+            break;
+        }
 
         // final displayed message
         std::cout << "The list shifted " << shiftInt << " elements to the left is [";
