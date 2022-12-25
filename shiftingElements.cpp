@@ -38,7 +38,7 @@ bool rerun() {
 
 
 // function to shift the elements of the lit to the right
-std::list<std::string> ShiftRight(std::list<std::string> userList, int shift) {
+std::list<std::string> ShiftLeft(std::list<std::string> userList, int shift) {
     // variables
     std::string firstElement;
 
@@ -54,7 +54,7 @@ std::list<std::string> ShiftRight(std::list<std::string> userList, int shift) {
 
 
 // function to shift the elements of the lit to the left
-std::list<std::string> ShiftLeft(std::list<std::string> userList, int shift) {
+std::list<std::string> ShiftRight(std::list<std::string> userList, int shift) {
     // variables
     std::string prevElement;
 
