@@ -124,8 +124,8 @@ int main() {
             shiftFloat = stof(shiftStr);
 
             // input is a float
-            if (shiftFloat == shiftInt) {
-                std::cout << "You can't shift a list " << shiftInt
+            if (shiftFloat != shiftInt) {
+                std::cout << "You can't shift a list " << shiftFloat
                           << " times! Please enter a positive integer!"
                           << std::endl;
 
