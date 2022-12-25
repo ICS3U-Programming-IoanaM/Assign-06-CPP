@@ -4,9 +4,38 @@
 // Date: Dec. 23, 2022
 // shifts the elements in a list x times in a specified direction
 
-
+#include <algorithm>
 #include <iostream>
 #include <list>
+
+
+// function that asks the user if they want ot rerun the program
+bool rerun() {
+    // variables
+    std::string yesNo;
+
+    std::cout << std::endl;
+
+    while (true) {
+        // asks user if they want to rerun the program
+        std::cout << "Do you want to rerun the program? (y/n) ";
+        std::cin >> yesNo;
+
+        // user wants to rerun the program
+        if (yesNo == "n") {
+            return false;
+
+        // user doesn't want to rerun the program
+        } else if (yesNo == "y") {
+            return true;
+
+        // user input is invalid
+        } else {
+            std::cout << "Please type either y or n." << std::endl;
+        }
+    }
+}
+
 
 // function to shift the elements of the lit to the right
 std::list<std::string> ShiftRight(std::list<std::string> userList, int shift) {
@@ -36,7 +65,10 @@ std::list<std::string> ShiftLeft(std::list<std::string> userList, int shift) {
         userList.pop_back();
     }
 
-    return userList;
+    for (std::string ele : userList) {
+        std::cout << ele;
+    }
+        return userList;
 }
 
 
@@ -59,13 +91,12 @@ void StartMessage() {
               << std::endl << std::endl;
 }
 
-
 int main() {
-    // variables
+    // variable
     std::list<std::string> listOfInput, finalList;
-    std::string userInput, shiftStr, displayList, direction;
-    bool goAgain;
+    std::string userInput, shiftStr, displayList, finalDisplay, direction;
     int shiftInt;
+    bool goAgain;
 
     // displays the start message
     StartMessage();
@@ -89,37 +120,44 @@ int main() {
         try {
             shiftInt = stoi(shiftStr);
 
-        // user input is not an int
+            // asks the user which way to shift the elements
+            std::cout << "Which way do you want to shift the list (l for left or r for right)? ";
+            std::cin >> direction;
+
+            // user wants to shift to the left
+            if (direction == "l") {
+                finalList = ShiftLeft(listOfInput, shiftInt);
+
+                // user wants to shift to the right
+            } else if (direction == "r") {
+                finalList = ShiftRight(listOfInput, shiftInt);
+
+                // user input is invalid
+            } else {
+                std::cout << "Please enter either l or r.";
+            }
+
+            // final displayed message
+            std::cout << "The list shifted " << shiftInt << " elements is [";
+            for (std::string element : finalList) {
+                displayList += element + ", ";
+            }
+            displayList.pop_back();
+            displayList.pop_back();
+            std::cout << displayList << "]." << std::endl;
+
+            // user input is not an int
         } catch (std::invalid_argument) {
             std::cout << "Please make sure your input is an integer." << std::endl;
-            break;
         }
 
-        // asks the user which way to shift the elements
-        std::cout << "Which way do you want to shift the list (l for left or r for right)? ";
-        std::cin >> direction;
+        goAgain = rerun();
 
-        // user wants to shift to the left
-        if (direction == "l") {
-            finalList = ShiftLeft(listOfInput, shiftInt);
+        // resets the variables (if necessary)
+        listOfInput = {};
+        finalList = {};
+        displayList = "";
+        finalDisplay = "";
 
-        // user wants to shift to the right
-        } else if (direction == "r") {
-            finalList = ShiftRight(listOfInput, shiftInt);
-
-        // user input is invalid
-        } else {
-            std::cout << "Please enter either l or r.";
-            break;
-        }
-
-        // final displayed message
-        std::cout << "The list shifted " << shiftInt << " elements to the left is [";
-        for (std::string element : finalList) {
-            displayList += element + ", ";
-        }
-        displayList.pop_back();
-        displayList.pop_back();
-        std::cout << displayList << "]." << std::endl << std::endl;
-    } while (false);
+    } while (goAgain);
 }
