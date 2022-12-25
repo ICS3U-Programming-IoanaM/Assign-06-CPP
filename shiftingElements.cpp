@@ -155,7 +155,8 @@ int main() {
 
                         // user input is invalid
                     } else {
-                        std::cout << "Please enter either l or r.";
+                        std::cout << "Please enter either l or r."
+                                  << std::endl;
                     }
                 }
 
