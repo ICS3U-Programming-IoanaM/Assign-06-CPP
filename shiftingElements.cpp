@@ -85,8 +85,8 @@ void StartMessage() {
               << "Enter a number (/q to quit): 1.1" << std::endl
               << "Enter a number (/q to quit): /q" << std::endl
               << "Here is your list: [3, abc, 1.1]" << std::endl
-              << "How many elements to the left do you want to shift this list? 2"
-              << std::endl
+              << "How many elements to the left"
+              << "do you want to shift this list? 2" << std::endl
               << "Your list shifted 2 elements to the left is [abc, 1.1, 3]"
               << std::endl << std::endl;
 }
@@ -113,7 +113,8 @@ int main() {
         listOfInput.remove("/q");
 
         // asks user how many times to shift the elements
-        std::cout << "How many times do you want to shift the elements in the list? ";
+        std::cout << "How many times do you want"
+                  << " to shift the elements in the list? ";
         std::cin >> shiftStr;
 
         // exception handling
@@ -121,12 +122,14 @@ int main() {
             shiftInt = stoi(shiftStr);
 
             if (shiftInt < 0) {
-                std::cout << "You can't shift a list " << shiftInt 
-                          << " times! Please enter a positive integer!" << std::endl;
+                std::cout << "You can't shift a list " << shiftInt
+                          << " times! Please enter a positive integer!"
+                          << std::endl;
             } else {
                 while (true) {
                     // asks the user which way to shift the elements
-                    std::cout << "Which way do you want to shift the list (l for left or r for right)? ";
+                    std::cout << "Which way do you want to shift"
+                              << " the list (l for left or r for right)? ";
                     std::cin >> direction;
 
                     // user wants to shift to the left
@@ -146,7 +149,8 @@ int main() {
                 }
 
                 // final displayed message
-                std::cout << "The list shifted " << shiftInt << " elements is [";
+                std::cout << "The list shifted "
+                          << shiftInt << " elements is [";
                 for (std::string element : finalList) {
                     displayList += element + ", ";
                 }
@@ -156,7 +160,8 @@ int main() {
             }
         // user input is not an int
         } catch (std::invalid_argument) {
-            std::cout << "Please make sure your input is an integer." << std::endl;
+            std::cout << "Please make sure your input is an integer."
+                      << std::endl;
         }
         goAgain = rerun();
 
@@ -165,6 +170,5 @@ int main() {
         finalList = {};
         displayList = "";
         finalDisplay = "";
-
     } while (goAgain);
 }
