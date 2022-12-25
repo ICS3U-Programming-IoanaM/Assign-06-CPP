@@ -96,6 +96,7 @@ int main() {
     std::list<std::string> listOfInput, finalList;
     std::string userInput, shiftStr, displayList, finalDisplay, direction;
     int shiftInt;
+    float shiftFloat;
     bool goAgain;
 
     // displays the start message
@@ -120,11 +121,21 @@ int main() {
         // exception handling
         try {
             shiftInt = stoi(shiftStr);
+            shiftFloat = stof(shiftStr);
 
-            if (shiftInt < 0) {
+            // input is a float
+            if (shiftFloat == shiftInt) {
                 std::cout << "You can't shift a list " << shiftInt
                           << " times! Please enter a positive integer!"
                           << std::endl;
+
+            // input is negative
+            } else if (shiftInt < 0) {
+                std::cout << "You can't shift a list " << shiftInt
+                          << " times! Please enter a positive integer!"
+                          << std::endl;
+
+            // input is valid
             } else {
                 while (true) {
                     // asks the user which way to shift the elements
