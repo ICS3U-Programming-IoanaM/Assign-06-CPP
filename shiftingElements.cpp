@@ -4,7 +4,7 @@
 // Date: Dec. 23, 2022
 // shifts the elements in a list x times in a specified direction
 
-#include <algorithm>
+
 #include <iostream>
 #include <list>
 
@@ -120,37 +120,44 @@ int main() {
         try {
             shiftInt = stoi(shiftStr);
 
-            // asks the user which way to shift the elements
-            std::cout << "Which way do you want to shift the list (l for left or r for right)? ";
-            std::cin >> direction;
-
-            // user wants to shift to the left
-            if (direction == "l") {
-                finalList = ShiftLeft(listOfInput, shiftInt);
-
-                // user wants to shift to the right
-            } else if (direction == "r") {
-                finalList = ShiftRight(listOfInput, shiftInt);
-
-                // user input is invalid
+            if (shiftInt < 0) {
+                std::cout << "You can't shift a list " << shiftInt 
+                          << " times! Please enter a positive integer!" << std::endl;
             } else {
-                std::cout << "Please enter either l or r.";
-            }
+                while (true) {
+                    // asks the user which way to shift the elements
+                    std::cout << "Which way do you want to shift the list (l for left or r for right)? ";
+                    std::cin >> direction;
 
-            // final displayed message
-            std::cout << "The list shifted " << shiftInt << " elements is [";
-            for (std::string element : finalList) {
-                displayList += element + ", ";
-            }
-            displayList.pop_back();
-            displayList.pop_back();
-            std::cout << displayList << "]." << std::endl;
+                    // user wants to shift to the left
+                    if (direction == "l") {
+                        finalList = ShiftLeft(listOfInput, shiftInt);
+                        break;
 
-            // user input is not an int
+                        // user wants to shift to the right
+                    } else if (direction == "r") {
+                        finalList = ShiftRight(listOfInput, shiftInt);
+                        break;
+
+                        // user input is invalid
+                    } else {
+                        std::cout << "Please enter either l or r.";
+                    }
+                }
+
+                // final displayed message
+                std::cout << "The list shifted " << shiftInt << " elements is [";
+                for (std::string element : finalList) {
+                    displayList += element + ", ";
+                }
+                displayList.pop_back();
+                displayList.pop_back();
+                std::cout << displayList << "]." << std::endl;
+            }
+        // user input is not an int
         } catch (std::invalid_argument) {
             std::cout << "Please make sure your input is an integer." << std::endl;
         }
-
         goAgain = rerun();
 
         // resets the variables (if necessary)
